@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="jquery.keyboard-focus.min.js"></script>
+
+    <style>
+      .keyboard-interaction-only:focus {
+        outline: none;
+      }
+      .keyboard-interaction-only.is-focused, .normal-focus-states:focus {
+        outline: 5px solid red; 
+      }
+
+      fieldset {
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="">
+      <fieldset>
+        <label for="input1">Keyboard interaction only</label>
+        <input id="input1" class="keyboard-interaction-only">
+      </fieldset>
+
+      <fieldset>
+        <label for="input2">:focus pseudo-state</label>
+        <input id="input2" class="normal-focus-states">
+      </fieldset>
+
+      <fieldset>
+        <label for="input3">Native focus outline</label>
+        <input id="input3">
+      </fieldset>
+    </form>
+
+    <p>
+      <button class="keyboard-interaction-only">Also keyboard interaction only</button>
+      <button class="keyboard-interaction-only">Also keyboard interaction only</button>
+      <a href="#" class="keyboard-interaction-only">Also keyboard interaction only</a>
+      <a href="#" class="keyboard-interaction-only">Also keyboard interaction only</a>
+    </p>
+    <p>
+      <button class="normal-focus-states">Also :focus pseudo-state</button>
+      <button class="normal-focus-states">Also :focus pseudo-state</button>
+      <a href="#" class="normal-focus-states">Also :focus pseudo-state</a>
+      <a href="#" class="normal-focus-states">Also :focus pseudo-state</a>
+    </p>
+    <p>
+      <button>Also native focus</button>
+      <button>Also native focus</button>
+      <a href="#">Also native focus</a>
+      <a href="#">Also native focus</a>
+    </p>
+
+    <script>
+      $('.keyboard-interaction-only').keyboardFocus('is-focused');
+    </script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "jquery-keyboard-focus",
+  "version": "0.0.1",
+  "authors": [
+    "Michelle Bu <michelle@michellebu.com>"
+  ],
+  "description": "Adds the provided classes to an element when it is focused by keyboard interactions (and not mouse interactions).",
+  "main": "jquery.keyboard-focus.js",
+  "keywords": [
+    "jQuery",
+    "focus",
+    "keyboard",
+    "interaction",
+    "accessibility"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~1.11.1"
+  }
+}
