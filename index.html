@@ -7,8 +7,13 @@
       .keyboard-interaction-only:focus {
         outline: none;
       }
-      .keyboard-interaction-only.is-focused, .normal-focus-states:focus {
+      .keyboard-interaction-only.is-focused,
+      .keyboard-interaction-only-alternate.is-focused,
+      .normal-focus-states:focus {
         outline: 5px solid red; 
+      }
+      .keyboard-interaction-only-alternate-alternate.is-more-focused {
+        outline: 5px solid purple;
       }
 
       fieldset {
@@ -36,9 +41,9 @@
 
     <p>
       <button class="keyboard-interaction-only">Also keyboard interaction only</button>
-      <button class="keyboard-interaction-only">Also keyboard interaction only</button>
+      <button class="keyboard-interaction-only-alternate">Also keyboard interaction only</button>
       <a href="#" class="keyboard-interaction-only">Also keyboard interaction only</a>
-      <a href="#" class="keyboard-interaction-only">Also keyboard interaction only</a>
+      <a href="#" class="keyboard-interaction-only-alternate-alternate">Also keyboard interaction only</a>
     </p>
     <p>
       <button class="normal-focus-states">Also :focus pseudo-state</button>
@@ -53,8 +58,20 @@
       <a href="#">Also native focus</a>
     </p>
 
+    <p class="dynamic-elements"></p>
+
     <script>
       $('.keyboard-interaction-only').keyboardFocus('is-focused');
+
+      $.keyboardFocus({
+        '.keyboard-interaction-only-alternate': 'is-focused',
+        '.keyboard-interaction-only-alternate-alternate': 'is-more-focused'
+      });
+
+      setTimeout(function() {
+        $('<a href="#" class="keyboard-interaction-only">This link was inserted dynamically, and won\'t have the right focus state.</a>').appendTo('.dynamic-elements');
+        $('<a href="#" class="keyboard-interaction-only-alternate-alternate">This link was also inserted dynamically, but will have the right focus state!</a>').appendTo('.dynamic-elements');
+      }, 1000);
     </script>
   </body>
 </html>

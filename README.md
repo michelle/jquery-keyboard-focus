@@ -10,6 +10,13 @@ Pass in the class you want to add when an element is focused by the keyboard to 
 
 ```javascript
 $('.keyboard-interactions-only').keyboardFocus('is-focused');
+
+// Or, if you have dynamic elements and want to apply your focus class to all
+// elements that match a given selector:
+$.keyboardFocus({
+  'a.keyboard-interactions-only': 'is-focused'
+  // You can specify multiple class name mappings.
+});
 ```
 
 ### Installation
