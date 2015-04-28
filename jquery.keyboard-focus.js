@@ -1,4 +1,13 @@
 (function($) {
+  // This needs to be `true` when we start, to catch the first keydown.
+  var lastKeyPress = true;
+  $(document).on('keydown.keyboardFocusGlobal', function(e) {
+    lastKeyPress = true;
+  });
+  $(document).on('mousedown.keyboardFocusGlobal', function(e) {
+    lastKeyPress = false;
+  });
+
   $.keyboardFocus = function(classNameMappings) {
     if (!classNameMappings) {
       throw new Error('Please pass a mapping of selectors to focus class names to `keyboardFocus`.');
@@ -25,29 +34,12 @@
   };
 
   $.fn.offKeyboardFocus = function() {
-    $(document).off('.keyboardFocus');
     this.off('.keyboardFocus');
   };
 
-  // Whether or not global listeners are set up.
-  var globalListeners = false;
-  // This needs to be `true` when we start, to catch the first keydown.
-  var lastKeyPress = true;
-
   function bindKeyboardFocusEvents($el, elementClass, classNames) {
     classNames = classNames.replace(/\./g, '');
-
     var $target;
-
-    if (!globalListeners) {
-      $(document).on('keydown.keyboardFocus', function(e) {
-        lastKeyPress = true;
-      });
-      $(document).on('mousedown.keyboardFocus', function(e) {
-        lastKeyPress = false;
-      });
-      globalListeners = true;
-    }
 
     $el.on('mousedown.keyboardFocus', elementClass, function(e) {
       $(e.target).removeClass(classNames);
