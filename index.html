@@ -22,6 +22,8 @@
     </style>
   </head>
   <body>
+    <h1>jQuery.keyboard-focus demo</h1> 
+    <h2>Plugin <span class="plugin-status"></span></h2>
     <form action="">
       <fieldset>
         <label for="input1">Keyboard interaction only</label>
@@ -60,18 +62,55 @@
 
     <p class="dynamic-elements"></p>
 
-    <script>
-      $('.keyboard-interaction-only').keyboardFocus('is-focused');
+    <p>
+      <button class="disable-plugin keyboard-interaction-only">Disable plugin</button>
+      <button class="enable-plugin keyboard-interaction-only">Enable plugin</button>
+    </p>
 
-      $.keyboardFocus({
-        '.keyboard-interaction-only-alternate': 'is-focused',
-        '.keyboard-interaction-only-alternate-alternate': 'is-more-focused'
-      });
+    <script>
+      var pluginEnabled = false;
+
+      function enablePlugin() {
+        if (pluginEnabled) {
+          return;
+        }
+
+        $('.keyboard-interaction-only').keyboardFocus('is-focused');
+        $.keyboardFocus({
+          '.keyboard-interaction-only-alternate': 'is-focused',
+          '.keyboard-interaction-only-alternate-alternate': 'is-more-focused'
+        });
+
+        pluginEnabled = true;
+        $('.plugin-status').text('enabled');
+        $('.enable-plugin').attr('disabled', true);
+        $('.disable-plugin').attr('disabled', false);
+      }
+
+      function disablePlugin() {
+        $.offKeyboardFocus();
+        $('.keyboard-interaction-only').offKeyboardFocus();
+
+        pluginEnabled = false;
+        $('.plugin-status').text('disabled');
+        $('.enable-plugin').attr('disabled', false);
+        $('.disable-plugin').attr('disabled', true);
+      }
+
+      enablePlugin();
 
       setTimeout(function() {
-        $('<a href="#" class="keyboard-interaction-only">This link was inserted dynamically, and won\'t have the right focus state.</a>').appendTo('.dynamic-elements');
+        $('<a href="#" class="keyboard-interaction-only">This link was inserted dynamically, and won\'t have the right focus state after page load.</a><br>').appendTo('.dynamic-elements');
         $('<a href="#" class="keyboard-interaction-only-alternate-alternate">This link was also inserted dynamically, but will have the right focus state!</a>').appendTo('.dynamic-elements');
       }, 1000);
+
+      $('.disable-plugin').click(function() {
+        disablePlugin();
+      });
+
+      $('.enable-plugin').click(function() {
+        enablePlugin();
+      });
     </script>
   </body>
 </html>
